@@ -48,8 +48,11 @@ exports.updateProfile = async(req,res) =>{
 //Update profile picture
 exports.updateDisplayPicture = async (req, res) => {
     try {
+      // REQ
       const displayPicture = req.files.displayPicture
-      const userId = req.user.id
+      const authId = req.user.id
+
+      // LOGIC
       const image = await imageUploadToCloudinary(
         displayPicture,
         process.env.FOLDER_NAME,
@@ -58,10 +61,12 @@ exports.updateDisplayPicture = async (req, res) => {
       )
       console.log(image)
       const updatedProfile = await User.findByIdAndUpdate(
-        { _id: userId },
+        { _id: authId },
         { image: image.secure_url },
         { new: true }
       )
+
+      // RES
       res.send({
         success: true,
         message: `Image Updated successfully`,

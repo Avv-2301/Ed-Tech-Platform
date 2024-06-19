@@ -5,6 +5,11 @@ import HighlightText from "../components/core/HomePage/HighlightText";
 import CTAButton from "../components/core/HomePage/Button";
 import Banner from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
+import TimelineSection from "../components/core/HomePage/TimelineSection";
+import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
+import Footer from "../components/common/Footer";
+import InstructorSection from "../components/core/HomePage/InstructorSection";
+import ExploreMore from "../components/core/HomePage/ExploreMore";
 
 const Home = () => {
   return (
@@ -110,6 +115,8 @@ const Home = () => {
             backgroundGradient={<div className="codeblock2 absolute"></div>}
           />
         </div>
+
+        <ExploreMore/>
       </div>
 
       {/* Section 2 */}
@@ -132,10 +139,48 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Section 3 */}
+        <div className="mx-auto w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-8">
+          <div className="mb-10 mt-[-100px] flex flex-col justify-between gap-7 lg:mt-20 lg:flex-row lg:gap-0">
+            <div className="text-4xl font-semibold lg:w-[45%]">
+              Get the skils you need for a
+              <HighlightText text={"Job that is in demand"} />
+            </div>
 
-        {/* Footer */}
+            <div className="flex flex-col gap-10 lg:w-[40%] items-start">
+              <div className="text-[16px]">
+                The modern StudyNotion is the dictates its own terms. Today, to
+                be a competitive specialist requires more than professional
+                skills.
+              </div>
+              <CTAButton active={true} linkto={"/signup"}>
+                <div>Learn More</div>
+              </CTAButton>
+            </div>
+          </div>
+
+          <TimelineSection />
+
+          <LearningLanguageSection />
+        </div>
       </div>
+
+
+      {/* Section 3 */}
+            <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+
+            <InstructorSection/>
+
+            <h1 className="text-center text-4xl font-semibold mt-8">
+              Reviews from other learners
+            </h1>
+
+            {/* <ReviewSlider/> */}
+
+            </div>
+
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

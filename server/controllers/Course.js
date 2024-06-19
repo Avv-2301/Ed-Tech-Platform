@@ -31,7 +31,7 @@ exports.createCourse = async (req, res) => {
     //Check if the person is instructor or not
     const userId = req.user.id;
     const instructorDetails = await User.findOne({ userId });
-    +console.log("Instructor Details:- ", instructorDetails);
+    console.log("Instructor Details:- ", instructorDetails);
 
     //if there is no instructor found
     if (!instructorDetails) {

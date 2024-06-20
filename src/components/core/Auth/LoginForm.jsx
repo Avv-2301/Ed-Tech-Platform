@@ -36,8 +36,8 @@ const LoginForm = () => {
     },
     {
       id: 1,
-      tabName: "Student",
-      type: ACCOUNT_TYPE.STUDENT,
+      tabName: "Instructor",
+      type: ACCOUNT_TYPE.INSTRUCTOR,
     },
   ];
 

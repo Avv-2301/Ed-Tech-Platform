@@ -20,7 +20,9 @@ const CodeBlocks = ({
       <div className="w-[100%] lg:w-[50%] flex flex-col gap-8">
         {heading}
 
-        <div className="font-bold text-base  w-[85%] mt-3 text-richblack-300">{subheading}</div>
+        <div className="font-bold text-base  w-[85%] mt-3 text-richblack-300">
+          {subheading}
+        </div>
 
         <div className="flex gap-7 mt-7">
           <CTAButton active={ctabtn1.active} linkto={ctabtn1.linkto}>
@@ -55,16 +57,16 @@ const CodeBlocks = ({
         </div>
 
         <div
-          className={`w-[90%] flex flex-col gap-2 font-bold font-mono ${codeColor} pr-1`}   
+          className={`w-[90%] flex flex-col gap-2 font-bold font-mono ${codeColor} pr-1`}
         >
           <TypeAnimation
             sequence={[codeblock, 5000, ""]}
             repeat={Infinity}
             cursor={true}
             style={{
-                whiteSpace: "pre-line",
-                display: "block",
-              }}
+              whiteSpace: "pre-line",
+              display: "block",
+            }}
             omitDeletionAnimation={true}
           />
         </div>

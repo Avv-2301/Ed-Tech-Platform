@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import {Link} from 'react-router-dom';
+import { ACCOUNT_TYPE } from '../../../utils/constants'
+import Tab from "../../common/Tab";
+
 
 const LoginForm = () => {
+
+  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);
+
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,8 +28,22 @@ const LoginForm = () => {
 
   const {email, password} = formData;
 
+  const tabData = [
+    {
+      id: 1,
+      tabName: "Student",
+      type: ACCOUNT_TYPE.STUDENT,
+    },
+    {
+      id: 1,
+      tabName: "Student",
+      type: ACCOUNT_TYPE.STUDENT,
+    },
+  ];
+
   return (
     <div>
+      <Tab tabData={tabData} field={accountType} setField={setAccountType}/>
       <form onSubmit="" className="flex flex-col mt-6 w-full gap-y-4">
         <label className="w-full">
           <p className="mb-1 text-richblack-5 text-[0.875rem] leading-[1.375rem]">

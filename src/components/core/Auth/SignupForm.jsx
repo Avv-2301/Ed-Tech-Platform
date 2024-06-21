@@ -50,7 +50,6 @@ console.log(formData, "FORM");
 
   const handleOnSubmit = (e) =>{
     e.preventDefault()
-    console.log(password, confirmPassword, "PAS");
     if(password[0] != confirmPassword[0]){
      toast.error("password do not match")
      return 
@@ -64,13 +63,13 @@ console.log(formData, "FORM");
     dispatch(setSignupData(signupData))
     dispatch(sendOtp(formData.email, navigate))
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    })
+    // setFormData({
+    //   firstName: "",
+    //   lastName: "",
+    //   email: "",
+    //   password: "",
+    //   confirmPassword: "",
+    // })
     setAccountType(ACCOUNT_TYPE.STUDENT)
   }
   const{firstName, lastName, email, password, confirmPassword} = formData

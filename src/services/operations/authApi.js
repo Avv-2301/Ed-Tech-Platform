@@ -9,10 +9,17 @@ export function sendOtp(email, navigate) {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      const response = await apiConnector("POST", authendpoints.SENDOTP_API, {
-        email,
-        checkUserPresent: true,
-      });
+    //   const response = await apiConnector("POST", authendpoints.SENDOTP_API, {
+    //     email,
+    //     checkUserPresent: true,
+    //   });
+    const response = await axios.post("http://localhost:4000/api/v1/auth/sendotp",
+        {
+            email,
+            checkUserPresent:true
+        }
+    )
+    
       console.log("SENDOTP API RESPONSE............", response);
 
       console.log(response.data.success);
@@ -88,7 +95,7 @@ export function getPasswordResetToken(email, setEmailSent) {
       //     { email }
       //   );
 
-      console.log(response);
+      console.log("SENDING RESET-PASSWORD-TOKEN RESPONSE........",response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -101,4 +108,31 @@ export function getPasswordResetToken(email, setEmailSent) {
     }
     dispatch(setLoading(false));
   };
+}
+
+
+export function resetPassword(password, confirmPassword, token){
+    return async (dispatch) =>{
+        const toastId = toast.loading("Loading...")
+        setLoading(dispatch(true))
+        try{
+            const response = await axios.post("http://localhost:4000/api/v1/auth/reset-password",{
+                password,
+                confirmPassword,
+                token
+            })
+
+            console.log("PRINTING RESPONSE", response)
+
+            if(!response.data.success){
+                throw new Error(response.data.message)
+            }
+            toast.success("Password Has Been Reset")
+        }
+        catch(error){
+            console.log("RESET PASSWORD TOKEN Error", error);
+            toast.error("Unable to reset password");
+        }
+        dispatch(setLoading(false))
+    }
 }

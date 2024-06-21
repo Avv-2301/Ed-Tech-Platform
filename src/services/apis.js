@@ -6,5 +6,6 @@ export const categories = {
 
 export const authendpoints = {
     RESETPASSWORD_API: BASE_URL + "/auth/reset-password-token",
-    SIGNUP_API: BASE_URL + "/auth/signup"
+    SIGNUP_API: BASE_URL + "/auth/signup",
+    SENDOTP_API: BASE_URL + "/auth/sendotp",
 }

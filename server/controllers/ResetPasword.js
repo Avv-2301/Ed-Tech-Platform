@@ -5,7 +5,7 @@ const crypto = require('crypto');
 
 //reset password token
 exports.resetPasswordToken = async (req, res) => {
-  try {
+	try {
 		const email = req.body.email;
 		const user = await User.findOne({ email: email });
 		if (!user) {

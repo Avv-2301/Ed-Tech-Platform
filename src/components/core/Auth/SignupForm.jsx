@@ -5,7 +5,8 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import  {useDispatch } from 'react-redux';
-import { signUp } from '../../../services/operations/authApi';
+import { sendOtp } from '../../../services/operations/authApi';
+import { setSignupData } from '../../../slices/authSlice'; 
 
 const SignupForm = () => {
 
@@ -45,16 +46,32 @@ const SignupForm = () => {
       [e.target.name]: [e.target.value]
     }))
   }
-
+console.log(formData, "FORM");
 
   const handleOnSubmit = (e) =>{
     e.preventDefault()
+    console.log(password, confirmPassword, "PAS");
+    if(password[0] != confirmPassword[0]){
+     toast.error("password do not match")
+     return 
+    }
 
-    // if(password !== confirmPassword){
-    //  toast.error("password do not match")
-    //  return 
-    // }
-    dispatch(signUp(),navigate)
+    const signupData ={
+      ...formData,
+      accountType,
+    }
+
+    dispatch(setSignupData(signupData))
+    dispatch(sendOtp(formData.email, navigate))
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    })
+    setAccountType(ACCOUNT_TYPE.STUDENT)
   }
   const{firstName, lastName, email, password, confirmPassword} = formData
 

@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import {Link} from 'react-router-dom';
-import { ACCOUNT_TYPE } from '../../../utils/constants'
-import Tab from "../../common/Tab";
 
 
 const LoginForm = () => {
 
-  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);
 
 
   const [formData, setFormData] = useState({
@@ -28,22 +25,9 @@ const LoginForm = () => {
 
   const {email, password} = formData;
 
-  const tabData = [
-    {
-      id: 1,
-      tabName: "Student",
-      type: ACCOUNT_TYPE.STUDENT,
-    },
-    {
-      id: 1,
-      tabName: "Instructor",
-      type: ACCOUNT_TYPE.INSTRUCTOR,
-    },
-  ];
 
   return (
     <div>
-      <Tab tabData={tabData} field={accountType} setField={setAccountType}/>
       <form onSubmit="" className="flex flex-col mt-6 w-full gap-y-4">
         <label className="w-full">
           <p className="mb-1 text-richblack-5 text-[0.875rem] leading-[1.375rem]">
@@ -72,7 +56,7 @@ const LoginForm = () => {
           required
           type={showPassword ? "text" : "password"}
           placeholder="Enter Password"
-          name="email"
+          name="password"
           value={password}
           onChange={handleInputChange}
           className="text-richblack-5 bg-richblack-800 w-full p-[12px] rounded-[0.5rem]"
@@ -89,14 +73,14 @@ const LoginForm = () => {
                 (<AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF"/>)
           }
         </span>
-        <Link to={"/forget-passowrd"}>
+        <Link to={"/forgot-password"}>
           <p className="text-blue-100 text-xs mt-2 ml-auto max-w-max"> 
             Forget Password
           </p>
         </Link>
         </label>
         <button type="submit" className="bg-yellow-50 text-richblack-800 mt-6 rounded-[8px] py-[8px] px-[12px] font-medium font-semibold">
-            Sign In
+            Log In
         </button>
       </form>
     </div>

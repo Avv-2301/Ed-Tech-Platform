@@ -76,7 +76,7 @@ exports.signUp = async (req, res) => {
       otp,
       contactNumber,
     } = req.body;
-
+console.log(req.body, "BODY SIGNUP");
     // validate fields
     if (
       !firstName ||
@@ -108,17 +108,17 @@ exports.signUp = async (req, res) => {
       });
     }
     //find the most recent otp stored from the user
-    const recentOtp = await OTP.find({ email })
+    const recentOtp = await OTP.findOne({ email })
       .sort({ createdAt: -1 })
       .limit(1);
     console.log(recentOtp);
     //validate otp
-    if (recentOtp.length === 0) {
+    if (!recentOtp) {
       return res.status(400).json({
         success: false,
         message: "OTP Not Found",
       });
-    } else if (otp !== recentOtp[0].otp) {
+    } else if (otp !== recentOtp.otp) {
       // Invalid OTP
       return res.status(400).json({
         success: false,
@@ -150,7 +150,7 @@ exports.signUp = async (req, res) => {
 
     // return Response
     return res.status(200).json({
-      succes: true,
+      success: true,
       user,
       message: "User created Succesfully",
     });

@@ -43,7 +43,7 @@ const SignupForm = () => {
   const handleInputChange = (e) =>{
     setFormData((prev) =>({
       ...prev,
-      [e.target.name]: [e.target.value]
+      [e.target.name]: e.target.value
     }))
   }
 console.log(formData, "FORM");
@@ -63,13 +63,13 @@ console.log(formData, "FORM");
     dispatch(setSignupData(signupData))
     dispatch(sendOtp(formData.email, navigate))
 
-    // setFormData({
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // })
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    })
     setAccountType(ACCOUNT_TYPE.STUDENT)
   }
   const{firstName, lastName, email, password, confirmPassword} = formData

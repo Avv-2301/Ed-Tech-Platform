@@ -51,15 +51,6 @@ export function signUp(
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      // const response = await apiConnector("POST", authendpoints.SIGNUP_API, {
-      //   accountType,
-      //   firstName,
-      //   lastName,
-      //   email,
-      //   password,
-      //   confirmPassword,
-      //   otp,
-      // });
 
       const response = await axios.post(
         "http://localhost:4000/api/v1/auth/signup",
@@ -73,6 +64,7 @@ export function signUp(
           otp,
         }
       );
+      console.log("SIGNUP RESPONSE.......", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -84,7 +76,7 @@ export function signUp(
       toast.error("Signup Failed");
       navigate("/signup");
     }
-    setLoading(false);
+    dispatch(setLoading(false));
     toast.dismiss(toastId);
   };
 }

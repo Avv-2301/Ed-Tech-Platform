@@ -24,7 +24,7 @@ const SignupForm = () => {
       type: ACCOUNT_TYPE.STUDENT,
     },
     {
-      id: 1,
+      id: 2,
       tabName: "Instructor",
       type: ACCOUNT_TYPE.INSTRUCTOR,
     },
@@ -50,7 +50,7 @@ console.log(formData, "FORM");
 
   const handleOnSubmit = (e) =>{
     e.preventDefault()
-    if(password[0] != confirmPassword[0]){
+    if(password[0] !== confirmPassword[0]){
      toast.error("password do not match")
      return 
     }
@@ -198,4 +198,4 @@ console.log(formData, "FORM");
   )
 }
 
-export default SignupForm
+export default SignupForm;

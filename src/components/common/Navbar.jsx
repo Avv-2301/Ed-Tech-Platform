@@ -6,8 +6,7 @@ import { Link, matchPath, useLocation } from "react-router-dom"
 
 import logo from "../../assets/Logo/Logo-Full-Light.png"
 import { NavbarLinks } from "../../data/navbar-links"
-import { apiConnector } from "../../services/apiconnector"
-import { categories } from "../../services/apis"
+import axios from 'axios';
 import { ACCOUNT_TYPE } from "../../utils/constants"
 import ProfileDropdown from "../core/Auth/ProfileDropDown"
 
@@ -24,7 +23,7 @@ function Navbar() {
     ;(async () => {
       setLoading(true)
       try {
-        const res = await apiConnector("GET", categories.CATEGORIES_API)
+        const res = await axios.get("http://localhost:4000/api/v1/course/showAllCategories")
         setSubLinks(res.data.data)
       } catch (error) {
         console.log("Could not fetch Categories.", error)

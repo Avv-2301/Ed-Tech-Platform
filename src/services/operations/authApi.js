@@ -1,25 +1,22 @@
-import { setLoading } from "../../slices/authSlice";
-import { authendpoints } from "../apis";
-import { apiConnector } from "../apiconnector";
+import { setLoading, setToken } from "../../slices/authSlice";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { setUser } from "../../slices/ProfileSlice";
 
+//SEND OTP API CALL
 export function sendOtp(email, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-    //   const response = await apiConnector("POST", authendpoints.SENDOTP_API, {
-    //     email,
-    //     checkUserPresent: true,
-    //   });
-    const response = await axios.post("http://localhost:4000/api/v1/auth/sendotp",
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/auth/sendotp",
         {
-            email,
-            checkUserPresent:true
+          email: email.toString(),
+          checkUserPresent: true,
         }
-    )
-    
+      );
+
       console.log("SENDOTP API RESPONSE............", response);
 
       console.log(response.data.success);
@@ -39,6 +36,7 @@ export function sendOtp(email, navigate) {
   };
 }
 
+//SIGNUP API CALL
 export function signUp(
   accountType,
   firstName,
@@ -53,15 +51,28 @@ export function signUp(
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      const response = await apiConnector("POST", authendpoints.SIGNUP_API, {
-        accountType,
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-        otp,
-      });
+      // const response = await apiConnector("POST", authendpoints.SIGNUP_API, {
+      //   accountType,
+      //   firstName,
+      //   lastName,
+      //   email,
+      //   password,
+      //   confirmPassword,
+      //   otp,
+      // });
+
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/auth/signup",
+        {
+          accountType,
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword,
+          otp,
+        }
+      );
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -78,6 +89,59 @@ export function signUp(
   };
 }
 
+//LOGIN API CALL
+export function login(email, password, navigate) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...");
+    dispatch(setLoading(true));
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      console.log("LOGIN API RESPONSE............", response);
+
+      if (!response.data.success) {
+        throw new Error(response.data.message);
+      }
+
+      toast.success("Login Successful");
+      dispatch(setToken(response.data.token));
+      const userImage = response.data?.user?.image
+        ? response.data.user.image
+        : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`;
+      dispatch(setUser({ ...response.data.user, image: userImage }));
+
+      localStorage.setItem("token", JSON.stringify(response.data.token));
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      navigate("/dashboard");
+    } catch (error) {
+      console.log("LOGIN API ERROR............", error);
+      toast.error("Login Failed");
+    }
+    dispatch(setLoading(false));
+    toast.dismiss(toastId);
+  };
+}
+
+//FUNCTION FOR LOGOUT
+export function logout(navigate) {
+  return (dispatch) => {
+    dispatch(setToken(null))
+    dispatch(setUser(null))
+    // dispatch(resetCart())
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    toast.success("Logged Out")
+    navigate("/")
+  }
+}
+
+//GET PASSWORD RESET TOKEN API CALL
 export function getPasswordResetToken(email, setEmailSent) {
   return async (dispatch) => {
     dispatch(setLoading(true));
@@ -95,7 +159,7 @@ export function getPasswordResetToken(email, setEmailSent) {
       //     { email }
       //   );
 
-      console.log("SENDING RESET-PASSWORD-TOKEN RESPONSE........",response);
+      console.log("SENDING RESET-PASSWORD-TOKEN RESPONSE........", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -110,29 +174,32 @@ export function getPasswordResetToken(email, setEmailSent) {
   };
 }
 
-
-export function resetPassword(password, confirmPassword, token){
-    return async (dispatch) =>{
-        const toastId = toast.loading("Loading...")
-        setLoading(dispatch(true))
-        try{
-            const response = await axios.post("http://localhost:4000/api/v1/auth/reset-password",{
-                password,
-                confirmPassword,
-                token
-            })
-
-            console.log("PRINTING RESPONSE", response)
-
-            if(!response.data.success){
-                throw new Error(response.data.message)
-            }
-            toast.success("Password Has Been Reset")
+// PASSWORD RESET API CALL
+export function resetPassword(password, confirmPassword, token) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...");
+    setLoading(dispatch(true));
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/auth/reset-password",
+        {
+          password,
+          confirmPassword,
+          token,
         }
-        catch(error){
-            console.log("RESET PASSWORD TOKEN Error", error);
-            toast.error("Unable to reset password");
-        }
-        dispatch(setLoading(false))
+      );
+
+      console.log("PRINTING RESPONSE", response);
+
+      if (!response.data.success) {
+        throw new Error(response.data.message);
+      }
+      toast.success("Password Has Been Reset");
+    } catch (error) {
+      console.log("RESET PASSWORD TOKEN Error", error);
+      toast.error("Unable to reset password");
     }
+    dispatch(setLoading(false));
+    toast.dismiss(toastId);
+  };
 }

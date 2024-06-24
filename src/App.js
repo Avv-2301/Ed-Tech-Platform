@@ -9,10 +9,12 @@ import ForgotPassword from './pages/ForgotPassword';
 import UpdatePassword from './pages/UpdatePassword';
 import VerifyEmail from './pages/VerifyEmail';
 import Dashboard from './pages/Dashboard'
-// import OpenRoute from './components/core/Auth/OpenRoute';
+import OpenRoute from './components/core/Auth/OpenRoute';
 import PrivateRoute from './components/core/Auth/PrivateRoute'
 import About from './pages/About';
 import ContactUs from './pages/ContactUs';
+import MyProfile from './components/core/Dashboard/MyProfile';
+import Error from './pages/Error';
 
 const App = () => {
   return (
@@ -20,16 +22,17 @@ const App = () => {
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
+        {/* <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/forgot-password' element={<ForgotPassword/>}/>
         <Route path='/update-password/:id' element={<UpdatePassword/>}/>
-        <Route path='/verify-email' element={<VerifyEmail/>}/>
-        <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
+        <Route path='/verify-email' element={<VerifyEmail/>}/> */}
+        <Route element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<ContactUs/>}/>
+        <Route path='/dashboard/my-profile' element={<MyProfile/>}/>
 
-        {/* <Route
+        <Route
           path="signup"
           element={
             <OpenRoute>
@@ -40,9 +43,9 @@ const App = () => {
     <Route
           path="login"
           element={
-            <OpenRoute>
+            // <OpenRoute>
               <Login />
-            </OpenRoute>
+            // </OpenRoute>
           }
         />
 
@@ -79,7 +82,9 @@ const App = () => {
           <Dashboard />
         </PrivateRoute>
       }
-      /> */}
+      />
+
+      <Route path="*" element={<Error />} />
       </Routes>
     </div>
   )

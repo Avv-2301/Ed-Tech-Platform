@@ -9,8 +9,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import UpdatePassword from './pages/UpdatePassword';
 import VerifyEmail from './pages/VerifyEmail';
 import Dashboard from './pages/Dashboard'
-import OpenRoute from './components/core/Auth/OpenRoute';
+// import OpenRoute from './components/core/Auth/OpenRoute';
 import PrivateRoute from './components/core/Auth/PrivateRoute'
+import About from './pages/About';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/update-password/:id' element={<UpdatePassword/>}/>
         <Route path='/verify-email' element={<VerifyEmail/>}/>
         <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
+        <Route path='/about' element={<About/>}/>
 
         {/* <Route
           path="signup"

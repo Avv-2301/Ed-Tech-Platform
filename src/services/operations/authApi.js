@@ -66,7 +66,7 @@ export function signUp(
       );
       console.log("SIGNUP RESPONSE.......", response)
 
-      if (!response.data.success) {
+      if (!response?.data?.success) {
         throw new Error(response.data.message);
       }
       toast.success("SignUp Successfull");

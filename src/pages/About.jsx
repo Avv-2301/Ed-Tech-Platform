@@ -7,6 +7,9 @@ import Quote from "../components/core/AboutPage/Quote";
 import FoundingStory from '../assets/Images/FoundingStory.png';
 import StatsComponent from "../components/core/AboutPage/StatsComponent";
 import LearningGrid from "../components/core/AboutPage/LearningGrid";
+import ContactFormSection from '../components/core/AboutPage/ContactFormSection';
+import Footer from '../components/common/Footer';
+// import ReviewSlider from '../components/core'
 
 const About = () => {
   return (
@@ -96,9 +99,23 @@ const About = () => {
       <StatsComponent/>
 
       {/* SECTION 5 */}
-      <section>
+      <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white">
         <LearningGrid/>
+        <ContactFormSection/>
       </section>
+
+
+      <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+        {/* Reviws from Other Learner */}
+        <h1 className="text-center text-4xl font-semibold mt-8">
+          Reviews from other learners
+        </h1>
+        {/* <ReviewSlider /> */}
+        {/* <ReviewSlider /> */}
+      </div>
+
+      {/* Footer */}
+      <Footer/>
     </div>
   );
 };

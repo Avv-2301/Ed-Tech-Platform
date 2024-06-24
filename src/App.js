@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard'
 // import OpenRoute from './components/core/Auth/OpenRoute';
 import PrivateRoute from './components/core/Auth/PrivateRoute'
 import About from './pages/About';
+import ContactUs from './pages/ContactUs';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/verify-email' element={<VerifyEmail/>}/>
         <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
         <Route path='/about' element={<About/>}/>
+        <Route path='/contact' element={<ContactUs/>}/>
 
         {/* <Route
           path="signup"

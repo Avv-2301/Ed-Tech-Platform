@@ -1,6 +1,6 @@
 import React from "react";
 import * as Icons from "react-icons/vsc";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, matchPath } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const SidebarLinks = ({ link, iconName }) => {
@@ -9,8 +9,8 @@ const SidebarLinks = ({ link, iconName }) => {
   const dispatch = useDispatch();
 
   const matchRoute = (route) => {
-    return matchRoute({ path: route }, location.pathname);
-  };
+    return matchPath({ path: route }, location.pathname)
+  }
 
   return (
     <NavLink
@@ -26,7 +26,7 @@ const SidebarLinks = ({ link, iconName }) => {
           matchRoute(link.path) ? "opacity-100" : "opacity-0"
         } `}
       ></span>
-      <div className="flex items-center gap-x-2">
+      <div className="flex items-center gap-x-2 text-richblack-300">
       <Icon className="text-lg" />
       <span>{link.name}</span>
       </div>

@@ -30,7 +30,7 @@ const App = () => {
         <Route element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<ContactUs/>}/>
-        <Route path='/dashboard/my-profile' element={<MyProfile/>}/>
+        
 
         <Route
           path="signup"
@@ -43,9 +43,9 @@ const App = () => {
     <Route
           path="login"
           element={
-            // <OpenRoute>
+            <OpenRoute>
               <Login />
-            // </OpenRoute>
+            </OpenRoute>
           }
         />
 
@@ -81,8 +81,9 @@ const App = () => {
         <PrivateRoute>
           <Dashboard />
         </PrivateRoute>
-      }
-      />
+      }>
+        <Route path='/dashboard/my-profile' element={<MyProfile/>}/>
+        </Route>
 
       <Route path="*" element={<Error />} />
       </Routes>

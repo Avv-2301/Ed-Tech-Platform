@@ -15,6 +15,8 @@ import About from './pages/About';
 import ContactUs from './pages/ContactUs';
 import MyProfile from './components/core/Dashboard/MyProfile';
 import Error from './pages/Error';
+import EnrolledCourses from './components/core/Dashboard/EnrolledCourses';
+import Cart from './components/core/Dashboard/Cart/index';
 
 const App = () => {
   return (
@@ -83,6 +85,8 @@ const App = () => {
         </PrivateRoute>
       }>
         <Route path='/dashboard/my-profile' element={<MyProfile/>}/>
+        <Route path='/dashboard/enrolled-courses' element={<EnrolledCourses/>}/>
+        <Route path="dashboard/cart" element={<Cart />} />
         </Route>
 
       <Route path="*" element={<Error />} />

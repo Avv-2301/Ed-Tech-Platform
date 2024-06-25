@@ -32,7 +32,7 @@ const MyProfile = () => {
         </div>
         <IconBtn
           text="Edit"
-          onClick={() => {
+          onclick={() => {
             navigate("/dashboard/settings");
           }}
         >

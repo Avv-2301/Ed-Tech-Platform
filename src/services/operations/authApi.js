@@ -1,6 +1,7 @@
 import { setLoading, setToken } from "../../slices/authSlice";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { resetCart } from "../../slices/cartSlice";
 import { setUser } from "../../slices/ProfileSlice";
 
 //SEND OTP API CALL
@@ -21,7 +22,7 @@ export function sendOtp(email, navigate) {
 
       console.log(response.data.success);
 
-      if (!response.data.success) {
+      if (!response?.data?.success) {
         throw new Error(response.data.message);
       }
 
@@ -104,7 +105,7 @@ export function login(email, password, navigate) {
       toast.success("Login Successful");
       dispatch(setToken(response.data.token));
       const userImage = response.data?.user?.image
-        ? response.data.user.image
+        ? response?.data?.user.image
         : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`;
       dispatch(setUser({ ...response.data.user, image: userImage }));
 
@@ -125,7 +126,7 @@ export function logout(navigate) {
   return (dispatch) => {
     dispatch(setToken(null))
     dispatch(setUser(null))
-    // dispatch(resetCart())
+    dispatch(resetCart())
     localStorage.removeItem("token")
     localStorage.removeItem("user")
     toast.success("Logged Out")
@@ -154,7 +155,7 @@ export function getPasswordResetToken(email, setEmailSent) {
       console.log("SENDING RESET-PASSWORD-TOKEN RESPONSE........", response);
 
       if (!response.data.success) {
-        throw new Error(response.data.message);
+        throw new Error(response?.data?.message);
       }
       toast.success("Reset password Email Sent");
       setEmailSent(true);
@@ -183,8 +184,8 @@ export function resetPassword(password, confirmPassword, token) {
 
       console.log("PRINTING RESPONSE", response);
 
-      if (!response.data.success) {
-        throw new Error(response.data.message);
+      if (!response?.data?.success) {
+        throw new Error(response?.data?.message);
       }
       toast.success("Password Has Been Reset");
     } catch (error) {

@@ -2,7 +2,7 @@ import React from 'react'
 
 const IconBtn = ({
     text,
-    onClick,
+    onclick,
     children,
     disabled,
     customClasses,

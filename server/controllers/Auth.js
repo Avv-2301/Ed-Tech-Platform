@@ -196,6 +196,9 @@ exports.login = async (req,res) =>{
                 id:user._id,
                 accountType:user.accountType,
             }
+
+            // console.log("PAYLOAD", payload);
+            
             const token  = jwt.sign(payload, process.env.JWT_SECRET,{
                 expiresIn:"24h"
             })

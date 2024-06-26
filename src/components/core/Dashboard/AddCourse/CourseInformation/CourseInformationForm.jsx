@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourseCategories } from "../../../../../services/operations/CourseDetailsApi";
 import { HiOutlineCurrencyRupee } from "react-icons/hi";
+import Upload from '../Upload';
 
 const CourseInformationForm = () => {
   const {
@@ -115,25 +116,23 @@ const CourseInformationForm = () => {
       {/* COURSE CATEGORY */}
       <div className="flex flex-col space-y-2">
         <label className="text-sm text-richblack-5" htmlFor="courseCategory">
-          Course Category
-          <sup className="text-pink-200">*</sup>
+          Course Category <sup className="text-pink-200">*</sup>
         </label>
         <select
-          id="courseCategory"
-          defaultValue=""
-          className="form-style w-full"
           {...register("courseCategory", { required: true })}
+          defaultValue=""
+          id="courseCategory"
+          className="form-style w-full"
         >
           <option value="" disabled>
             Choose a Category
           </option>
-
           {!loading &&
-            courseCategories?.map((category, index) => {
-              <option key={index} value={category?._id}>
+            courseCategories?.map((category, indx) => (
+              <option key={indx} value={category?._id}>
                 {category?.name}
-              </option>;
-            })}
+              </option>
+            ))}
         </select>
         {errors.courseCategory && (
           <span className="ml-2 text-xs tracking-wide text-pink-200">
@@ -141,6 +140,19 @@ const CourseInformationForm = () => {
           </span>
         )}
       </div>
+      {/* Course Tags */}
+      {/* <ChipInput
+        label="Tags"
+        name="courseTags"
+        placeholder="Enter Tags and press Enter"
+        register={register}
+        errors={errors}
+        setValue={setValue}
+        getValues={getValues}
+      /> */}
+      {/* UPLOAD THUMBNAIL */}
+      <Upload/>
+      
     </form>
   );
 };

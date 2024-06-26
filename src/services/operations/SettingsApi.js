@@ -26,7 +26,14 @@ export function updateDisplayPicture(token, formData) {
         throw new Error(response.data.message);
       }
       toast.success("Display Picture Updated Successfully");
-      dispatch(setUser(response.data.data));
+      console.log(response.data.data, "RES");
+      const userData = JSON.parse(localStorage.getItem("user"));
+      console.log(userData);
+      // console.log(JSON.stringify(response.data.data));
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+      // await dispatch(
+      //   setUser({ ...response.data.data, image: response.data.data.image })
+      // );
     } catch (error) {
       console.log("UPDATE_DISPLAY_PICTURE_API API ERROR............", error);
       toast.error("Could Not Update Display Picture");
@@ -92,8 +99,6 @@ export async function changePassword(token, formData) {
   }
   toast.dismiss(toastId);
 }
-
-
 
 export function deleteProfile(token, navigate) {
   return async (dispatch) => {

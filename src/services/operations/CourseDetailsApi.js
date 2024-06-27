@@ -72,3 +72,13 @@ export const fetchCourseCategories = async() =>{
     toast.dismiss(toastId)
     return result
  }
+
+
+ export const updateSection = async() =>{
+
+ }
+
+
+ export const createSection = async() =>{
+    
+ }

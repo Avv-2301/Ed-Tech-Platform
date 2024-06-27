@@ -18,3 +18,13 @@ export const fetchCourseCategories = async() =>{
     }
     return result
 }
+
+
+ export const editCourseDetails = async() =>{
+
+ }
+
+
+ export const addCourseDetails = async() =>{
+
+ }

@@ -20,11 +20,55 @@ export const fetchCourseCategories = async() =>{
 }
 
 
- export const editCourseDetails = async() =>{
-
+ export const editCourseDetails = async(data,token) =>{
+    let result = null
+    const toastId = toast.loading("Loading...")
+    try{
+        const response = await axios.post("http://loclahost:4000/api/v1/course/editCourse",data,
+            {
+            headers:{
+                "Content-Type": "multipart/form-data",
+                Authorization:`Bearer ${token}`
+            }
+        })
+        console.log("EDIT COURSE API RESPONSE............", response)
+        if (!response?.data?.success) {
+          throw new Error("Could Not Add Course Details")
+        }
+        toast.success("Course Details Edited Successfully")
+        result = response?.data?.data
+    }
+    catch(error){
+        console.log("EDIT COURSE API ERROR............", error)
+        toast.error(error.message)
+    }
+    toast.dismiss(toastId)
+    return result
  }
 
 
- export const addCourseDetails = async() =>{
-
+ export const addCourseDetails = async(data,token) =>{
+    let result = null
+    const toastId = toast.loading("Loading...")
+    try{
+        const response = await axios.post("http://localhost:4000/api/v1/course/createCourse",data,
+            {
+            headers:{
+                "Content-Type": "multipart/form-data",
+                Authorization:`Bearer ${token}`
+            }
+        })
+        console.log("CREATE COURSE API RESPONSE............", response)
+        if (!response?.data?.success) {
+          throw new Error("Could Not Add Course")
+        }
+        toast.success("Course Details Added Successfully")
+        result = response?.data?.data
+    }
+    catch(error){
+        console.log("CREATE COURSE API ERROR............", error)
+        toast.error(error.message)
+    }
+    toast.dismiss(toastId)
+    return result
  }

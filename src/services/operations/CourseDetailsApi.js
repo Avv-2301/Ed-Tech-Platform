@@ -74,11 +74,57 @@ export const fetchCourseCategories = async() =>{
  }
 
 
- export const updateSection = async() =>{
-
+ export const updateSection = async(data,token) =>{
+    let result = null
+    const toastId = toast.loading("Loading...");
+    try{
+        const response = await axios.post("http://localhost:4000/api/v1/course/updateSection",data,
+            {
+                headers:{
+                    "Content-Type": "multipart/form-data",
+                    Authorization:`Bearer ${token}`
+                }
+            }
+        )
+        console.log("UPDATE SECTION API RESPONSE.....",response)
+        if(!response.data.data){
+            throw new Error("Cannot update a section")
+        }
+        toast.success("Section updated successfully")
+        result = response.data.data
+    }
+    catch(error){
+        console.log("Error in updating section")
+        toast.error(error.message)
+    }
+    toast.dismiss(toastId)
+    return result; 
  }
 
 
- export const createSection = async() =>{
-    
+ export const createSection = async(data,token) =>{
+    let result = null
+    const toastId= toast.loading("Loading....")
+    try{
+        const response = await axios.post("http://localhost:4000/api/v1/course/addSection",data,
+            {
+                headers:{
+                    "Content-Type": "multipart/form-data",
+                    Authorization:`Bearer ${token}`
+                }
+            }
+        )
+        console.log("CREATE SECTION API RESPONSE.....",response)
+        if(!response?.data?.success){
+            throw new Error ("Could not create section")
+        }
+        toast.success("Course section created")
+        result = response?.data?.updatedCourse
+    }
+    catch(error){
+        console.log("Create section error",error)
+        toast.error(error.message)
+    }
+    toast.dismiss(toastId)
+    return result
  }

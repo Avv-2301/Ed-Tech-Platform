@@ -60,7 +60,7 @@ router.post("/createCourse", auth, isInstructor, createCourse)
 //Add a Section to a Course
 router.post("/addSection", auth, isInstructor, createSection)
 // Update a Section
-// router.post("/updateSection", auth, isInstructor, updateSection)
+router.post("/updateSection", auth, isInstructor, updateSection)
 // // Delete a Section
 // router.post("/deleteSection", auth, isInstructor, deleteSection)
 // Edit Sub Section

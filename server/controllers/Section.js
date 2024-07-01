@@ -54,39 +54,35 @@ exports.createSection = async (req, res) => {
 
 //UpdateSection handler function
 exports.updateSection = async (req, res) => {
-  try {
-    //fetch data
-    const { sectionName, sectionId } = req.body;
+	try {
+		const { sectionName, sectionId,courseId } = req.body;
+		const section = await Section.findByIdAndUpdate(
+			sectionId,
+			{ sectionName },
+			{ new: true }
+		);
 
-    //data validation
-    if (!sectionName || !sectionId) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required",
-      });
-    }
+		const course = await Course.findById(courseId)
+		.populate({
+			path:"courseContent",
+			populate:{
+				path:"subSection",
+			},
+		})
+		.exec();
 
-    //update data
-    const updateSection = await Section.findByIdAndUpdate(
-      sectionId,
-      { sectionName },
-      { new: true }
-    );
-
-    //return response
-    return res.status(200).json({
-      success: true,
-      message: "Section updated successfully",
-      section: updateSection
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Cannot update Section, please try again",
-      error: error.message,
-    });
-  }
+		res.status(200).json({
+			success: true,
+			message: section,
+			data:course,
+		});
+	} catch (error) {
+		console.error("Error updating section:", error);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
+	}
 };
 
 //delete section handler function

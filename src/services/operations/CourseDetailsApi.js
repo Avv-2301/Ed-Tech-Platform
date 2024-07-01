@@ -236,3 +236,59 @@ export const updateSubSection = async (data, token) => {
   toast.dismiss(toastId);
   return result;
 };
+
+
+export const fetchInstructorCourses = async(token) =>{
+  let result = []
+  const toastId = toast.loading("Loading....")
+  try{
+    const response = await axios.get("http://localhost:4000/api/v1/course/getInstructorCourses",
+      {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      }
+    )
+    console.log("FETCH INSTRUCTOR COURSE API RESPONSE.........",response)
+    if (!response?.data?.success) {
+      throw new Error("Could Not Fetch Instructor Courses")
+    }
+    toast.success("Instructor courses fetched successfully")
+    result = response?.data?.data
+  }
+  catch(error){
+    console.log("INSTRUCTOR COURSES API ERROR............", error)
+    toast.error(error.message)
+  }
+  toast.dismiss(toastId)
+  return result
+}
+
+
+export const deleteCourse = async(data,token) => {
+  const toastId = toast.loading("Loading....")
+  try{
+    const response = await axios.delete("http://localhost:4000/api/v1/course/deleteCourse",
+      data,
+      {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      }
+    )
+    console.log("DELETE COURSE API RESPONSE.......",response)
+    if (!response?.data?.success) {
+      throw new Error("Could Not delete Courses")
+    }
+    toast.success("Course deleted successfully")
+  }
+  catch(error){
+    console.log("DELETE COURSE API ERROR........",error)
+    toast.error(error.message)
+  }
+  toast.dismiss(toastId)
+}
+
+export const getFullDetailsOfCourse = async() =>{
+
+}

@@ -11,6 +11,7 @@ const {
   getCourseDetails,
   // getCourseDeatils,
   editCourse,
+  getAllCourses,
   // getInstructorCourses,
   // deleteCourse,
 } = require("../controllers/Course")
@@ -70,7 +71,7 @@ router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
 // // Add a Sub Section to a Section
 router.post("/addSubSection", auth, isInstructor, createSubSection)
 // Get all Registered Courses
-router.get("/getAllCourses", showAllCourses)
+router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
 // Get Details for a Specific Courses

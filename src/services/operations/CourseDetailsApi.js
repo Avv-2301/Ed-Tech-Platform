@@ -24,7 +24,7 @@ export const editCourseDetails = async (data, token) => {
   const toastId = toast.loading("Loading...");
   try {
     const response = await axios.post(
-      "http://loclahost:4000/api/v1/course/editCourse",
+      "http://localhost:4000/api/v1/course/editCourse",
       data,
       {
         headers: {
